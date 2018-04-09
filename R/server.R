@@ -203,21 +203,17 @@ shinyServer(
       })
 
       output$initial_map <- renderPlot({
-        colores <- c(col_landUses,
-          # 'lightgoldenrod1', # Crops
-          #               'green', # Natural forests
-          #               'white', # Other
-                         den_pp()$col) # Pine plantation
-            key_landuses <- list(text = list(lab = c("Cultivos", "Bosques Naturales","Matorrales", "Pinares")),
-                                 rectangles=list(col = colores), space='bottom', columns=4)
+        colores <- c(col_landUses, den_pp()$col) 
+        key_landuses <- list(text = list(lab = c("Cultivos", "Bosques Naturales","Matorrales", "Pinares")),
+                             rectangles=list(col = colores), space='bottom', columns=4)
 
-            levelplot(landscapeInit(), att='landuse', scales=list(draw=FALSE),
-                      col.regions = colores, colorkey=FALSE, key = key_landuses,
-                      par.settings = list(axis.line = list(col = "transparent"),
-                                          layout.heights = list(xlab.key.padding= 12))) +
-              spplot(limit_pp(), fill = "transparent", col = "black",
-                     xlim = c(ext()$xmin, ext()$xmax), ylim = c(ext()$ymin, ext()$ymax),
-                     colorkey = FALSE, lwd=line_pol)
+        levelplot(landscapeInit(), att='landuse', scales=list(draw=FALSE),
+                  col.regions = colores, colorkey=FALSE, key = key_landuses,
+                  par.settings = list(axis.line = list(col = "transparent"),
+                                      layout.heights = list(xlab.key.padding= 12))) +
+          spplot(limit_pp(), fill = "transparent", col = "black",
+                 xlim = c(ext()$xmin, ext()$xmax), ylim = c(ext()$ymin, ext()$ymax),
+                 colorkey = FALSE, lwd=line_pol)
       })
 
     })
