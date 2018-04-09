@@ -39,10 +39,21 @@ piMammal = (0.2)/50
 richness_theme <- rasterTheme(region = brewer.pal(9, "YlGn"),
                               axis.line = list(col = "transparent"),
                               layout.heights = list(xlab.key.padding= 12))
-
+colorkey_richness <- list(space = "bottom", 
+                          title = expression(
+                            bold(paste("N",~degree, " species", sep=""))), 
+                          title.gpar = list(cex = 1.2))
 
 propagule_theme <- rasterTheme(region = brewer.pal(9, "RdBu"),
                                axis.line = list(col = "transparent"),
                                layout.heights = list(xlab.key.padding= 12))
+
+
+# Spinners Customization 
+# see https://cran.r-project.org/web/packages/shinycssloaders/shinycssloaders.pdf
+
+spinnerType <- 8 
+spinnerSize <- 0.7 
+
 
 

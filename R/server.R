@@ -1,6 +1,7 @@
 library('shiny')
 library('shinycssloaders')
 library('raster')
+library('dplyr')
 library('landscapeR')
 library('rasterVis')
 library('RColorBrewer')
@@ -197,9 +198,15 @@ shinyServer(
 
     observeEvent(input$doPaisaje, {
       output$plotMaps <- renderUI({
-        withSpinner(
-          plotOutput("initial_map", height = h_plots),
-        type=5, size=.8)
+        withProgress(message = 'Calculation in progress',
+                     detail = 'This may take a while...', value = 0, {
+                       for (i in 1:15) {
+                         incProgress(1/15)
+                         Sys.sleep(0.1)
+                       }
+                     })
+        
+        plotOutput("initial_map", height = h_plots) 
       })
 
       output$initial_map <- renderPlot({
@@ -220,9 +227,9 @@ shinyServer(
 
     observeEvent(input$doRiquezaInit, {
       output$plotMaps <- renderUI({
-        withSpinner(
-        plotOutput("richness_map", height = h_plots),
-        type=5, size=.8)})
+        plotOutput("richness_map", height = h_plots) %>% 
+          withSpinner(type = spinnerType, size = spinnerSize)
+        })
 
       output$richness_map <- renderPlot({
 
@@ -231,7 +238,8 @@ shinyServer(
 
           levelplot(mapa_riqueza, par.settings = richness_theme, margin = FALSE,
                     scales=list(draw=FALSE), pretty=TRUE,
-                    colorkey = list(space = "bottom")) +
+                    colorkey = colorkey_richness, 
+                    main = list("Riqueza Inicial")) + 
             spplot(limit_pp(), fill = "transparent", col = "black",
                    xlim = c(ext()$xmin, ext()$xmax), ylim = c(ext()$ymin, ext()$ymax),
                    colorkey = FALSE, lwd=line_pol)
@@ -241,9 +249,9 @@ shinyServer(
 
     observeEvent(input$doPropagulo, {
       output$plotMaps <- renderUI({
-        withSpinner(
-          plotOutput("richness_disper", height = h_plots),
-          type=5, size=.8)})
+          plotOutput("richness_disper", height = h_plots) %>% 
+          withSpinner(type = spinnerType, size = spinnerSize)
+      })
 
       output$richness_disper <- renderPlot({
         levelplot(propagule(),
@@ -254,15 +262,15 @@ shinyServer(
 
     observeEvent(input$doRiquezaEnd, {
       output$plotMaps <- renderUI({
-        withSpinner(
-          plotOutput("richness_disperTime", height = h_plots),
-          type=5, size=.8)})
+          plotOutput("richness_disperTime", height = h_plots) %>% 
+          withSpinner(type = spinnerType, size = spinnerSize)
+      })
 
       output$richness_disperTime <- renderPlot({
         rend <- rich_end()$rich_time
         levelplot(stack(rend),
                   par.settings = richness_theme, margin = FALSE, pretty=TRUE,
-                  scales=list(draw=FALSE), colorkey = list(space = "bottom")) +
+                  scales=list(draw=FALSE), colorkey = colorkey_richness) +
           spplot(limit_pp(), fill = "transparent", col = "black",
                  xlim = c(ext()$xmin, ext()$xmax), ylim = c(ext()$ymin, ext()$ymax),
                  colorkey = FALSE, lwd=line_pol)
