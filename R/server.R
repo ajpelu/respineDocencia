@@ -217,7 +217,8 @@ shinyServer(
         levelplot(landscapeInit(), att='landuse', scales=list(draw=FALSE),
                   col.regions = colores, colorkey=FALSE, key = key_landuses,
                   par.settings = list(axis.line = list(col = "transparent"),
-                                      layout.heights = list(xlab.key.padding= 12))) +
+                                      layout.heights = list(xlab.key.padding= 12)),
+                  main = list("Paisaje inicial")) +
           spplot(limit_pp(), fill = "transparent", col = "black",
                  xlim = c(ext()$xmin, ext()$xmax), ylim = c(ext()$ymin, ext()$ymax),
                  colorkey = FALSE, lwd=line_pol)
@@ -270,7 +271,8 @@ shinyServer(
         rend <- rich_end()$rich_time
         levelplot(stack(rend),
                   par.settings = richness_theme, margin = FALSE, pretty=TRUE,
-                  scales=list(draw=FALSE), colorkey = colorkey_richness) +
+                  scales=list(draw=FALSE), colorkey = colorkey_richness,
+                  main = list("Riqueza Final")) +
           spplot(limit_pp(), fill = "transparent", col = "black",
                  xlim = c(ext()$xmin, ext()$xmax), ylim = c(ext()$ymin, ext()$ymax),
                  colorkey = FALSE, lwd=line_pol)

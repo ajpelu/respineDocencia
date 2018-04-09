@@ -48,7 +48,6 @@ propagule_theme <- rasterTheme(region = brewer.pal(9, "RdBu"),
                                axis.line = list(col = "transparent"),
                                layout.heights = list(xlab.key.padding= 12))
 
-
 # Spinners Customization 
 # see https://cran.r-project.org/web/packages/shinycssloaders/shinycssloaders.pdf
 
