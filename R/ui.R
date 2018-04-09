@@ -11,19 +11,19 @@ library('RColorBrewer')
 library('sp')
 library('rgeos')
 
+
+# Set height plots
+h_plots <- 600
+
 header <- dashboardHeader(disable = TRUE)
 # title = "Respine App CC", titleWidth = 300)
-
 sidebar <- dashboardSidebar(disable=TRUE)
-
-# Set heigth plots
-h_plots <- 1000
 
 body <- dashboardBody(
   fluidRow(
     column(width = 4,
       fluidRow(
-        box(
+        box(h4(div(strong('Paisaje'), style="color:green")),
           sliderInput(inputId = "size_pp", label = "Tamaño de la repoblación de pinar",
                       min = 200, max = 1500, value = 750),
           selectInput(inputId = "density_pp", label = "Densidad de la plantación",
@@ -35,12 +35,12 @@ body <- dashboardBody(
           actionButton("doPaisaje", "Configura Paisaje"),
           actionButton("doRiquezaInit", "Riqueza Inicial")
           ),
-        box(h5('Dispersantes'),
+        box(h4(div(strong('Dispersantes'), style="color:green")),
           sliderInput(inputId = "sb",label = "Aves pequeño tamaño",
                       min = 0, max = 100, value = 0, step = 1),
           uiOutput("mb"),
           tableOutput("disptable")),
-        box(h5('Simulación'),
+        box(h4(div(strong('Simulación'), style="color:green")),
           sliderInput("timeRange", "Número de años simulación:", min=10, max=50, value=30),
           actionButton("doPropagulo", "Input Propágulos"),
           actionButton("doRiquezaEnd", "Riqueza Final"))
@@ -56,9 +56,9 @@ body <- dashboardBody(
 
         )
       ),
-    column(width = 2),
+   # column(width = 2),
 
-    column(width = 6,
+    column(width = 8,
            box(width = NULL,
                  uiOutput('plotMaps')
               )
