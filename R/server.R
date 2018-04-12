@@ -210,8 +210,14 @@ shinyServer(
       })
 
       output$initial_map <- renderPlot({
-        colores <- c(col_landUses, den_pp()$col) 
-        key_landuses <- list(text = list(lab = c("Cultivos", "Bosques Naturales","Matorrales", "Pinares")),
+        colores <- c('white', # Other
+                     den_pp()$col, # Pine plantation
+                     '#f1a340', #green', # Natural forests
+                     '#999999' #lightgoldenrod1', # Crops
+                     ) 
+        
+        # colores <- c(col_landUses, den_pp()$col) 
+        key_landuses <- list(text = list(lab = c("Matorrales", "Pinares","Bosques Naturales","Cultivos")),
                              rectangles=list(col = colores), space='bottom', columns=4)
 
         levelplot(landscapeInit(), att='landuse', scales=list(draw=FALSE),
