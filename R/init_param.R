@@ -4,11 +4,11 @@
 # Height for plotOutput
 h_plots <- 800
 
-# Colours land Use class 
-# note <- to change pine plantation see input$density_pp
-col_landUses <- c('#999999', #lightgoldenrod1', # Crops
-                  '#f1a340', #green', # Natural forests
-                  'white') # Matorrales 
+# # Colours land Use class 
+# # note <- to change pine plantation see input$density_pp
+# col_landUses <- c('#999999', #lightgoldenrod1', # Crops
+#                   '#f1a340', #green', # Natural forests
+#                   'white') # Matorrales 
 
 ## Create empty landscape
 set.seed(123)
